@@ -1,3 +1,8 @@
+## Quick notes:
+add psql to the environment variables in windows if psql is not being recognized
+https://siteofachyu.wordpress.com/2017/11/03/psql-not-recognized-as-an-internal-or-external-command-in-windows/
+
+################################
 # 1702 Express/Sequelize/Associations Review
 Quick review session for 1702 FSA/GH students for `Express` and `Sequelize` and `Sequelize` association methods
 
