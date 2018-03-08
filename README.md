@@ -1,4 +1,13 @@
-## Quick notes:
+## Quick notes (postgreSQL):
+
+For ubuntu:
+apt-get install postgresql-9.6
+
+Sample instalation of postgreSQL database in windows:
+https://www.youtube.com/watch?v=fD7x8hd9yE4
+
+psql -U postgres -h localhost   (-U for user, in this case postgres, -h for hostname)
+
 add psql to the environment variables in windows if psql is not being recognized
 https://siteofachyu.wordpress.com/2017/11/03/psql-not-recognized-as-an-internal-or-external-command-in-windows/
 
