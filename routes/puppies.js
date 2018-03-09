@@ -5,24 +5,21 @@ const Food = require('../models/Food');
 
 module.exports = router;
 
-// We will use router.param to match any route with an ':id' param in it.
-// this callback function will run anytime the route matches that param
-// generally, we want to use router.param to put objects on the req object itself
-// here, we perform the findById and add the instance of the puppy at req.puppy
-// We also handle
-router.param('id', (req, res, next, id) => {
-  Puppy.findById(id)
-    .then(puppy => {
-      // if no puppy found, send 404
-      if (!puppy) res.sendStatus(404);
-      else {
-        req.puppy = puppy;
-        // we have to call next here so that the actual route we want to hit will match after the router.param
-        next();
-      }
-    })
-    .catch(next);
-});
+// // We will use this to test the class + instance method, therefore, see the get puppy by id route below
+// router.param('id', (req, res, next, id) => {
+//   Puppy.findById(id)
+//     .then(puppy => {
+//       // if no puppy found, send 404
+//       if (!puppy) res.sendStatus(404);
+//       else {
+//         req.puppy = puppy;
+//         // we have to call next here so that the actual route we want to hit will match after the router.param
+//         next();
+//       }
+//     })
+//     .catch(next);
+// });
+
 
 // get all puppies route
 router.get('/', (req, res, next) => {
@@ -51,7 +48,28 @@ router.post('/', (req, res, next) => {
 // get puppy by id
 router.get('/:id', (req, res, next) => {
   // router.param has now taken care of this!!
-  res.send(req.puppy);
+  //res.send(req.puppy);
+  
+ var inputFood = req.query.food;
+ console.log('Testing the input parameters and the class+instance methods: ' + JSON.stringify(req.query.food) + '\n');
+  Puppy.findOne({
+    where: {  //sequelize
+      id: req.params.id
+    }
+  })
+  .then(function (puppy) {
+    if (!puppy) res.send('that pup does not exist, try other id')
+    else {
+      //tests for the class+instance methods
+      console.log(puppy.greet());
+      puppy.constructor.count();
+      puppy.constructor.findByFavFood(inputFood); //localhost:3000/puppies/2?food=pizza returns how many pups have favFood pizza
+      res.send(puppy)
+    }
+  })
+  .catch(next);
+  
+  
 });
 
 // update a particular puppy
